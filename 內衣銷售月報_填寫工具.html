@@ -8,84 +8,125 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap');
 :root {
-  --accent: #D4537E; --bg: #F5F3EF; --surface: #fff;
-  --border: #E5E2DC; --text: #1A1814; --muted: #8A8680;
-  --radius: 12px; --font: 'Noto Sans TC', sans-serif;
+  --accent:#D4537E; --bg:#F5F3EF; --surface:#fff;
+  --border:#E5E2DC; --text:#1A1814; --muted:#8A8680;
+  --radius:12px; --font:'Noto Sans TC',sans-serif;
 }
-* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-html, body { font-family: var(--font); background: var(--bg); color: var(--text); font-size: 15px; }
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:15px;}
 
-.header { background: var(--surface); padding: 18px 16px 14px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; }
-.header-icon { width: 38px; height: 38px; background: var(--accent); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
-.header h1 { font-size: 17px; font-weight: 700; }
-.header p { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.header{background:var(--surface);padding:16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;}
+.header-icon{width:38px;height:38px;background:var(--accent);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.header h1{font-size:17px;font-weight:700;}
+.header p{font-size:12px;color:var(--muted);margin-top:2px;}
 
-.nav { position: sticky; top: 0; z-index: 100; background: var(--surface); border-bottom: 1px solid var(--border); display: flex; overflow-x: auto; }
-.nav::-webkit-scrollbar { display: none; }
-.nav-btn { flex-shrink: 0; padding: 13px 16px 11px; font-size: 13px; font-weight: 500; color: var(--muted); border: none; background: none; cursor: pointer; border-bottom: 2.5px solid transparent; white-space: nowrap; transition: color .2s, border-color .2s; font-family: var(--font); }
-.nav-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+.nav{position:sticky;top:0;z-index:100;background:var(--surface);border-bottom:1px solid var(--border);display:flex;overflow-x:auto;}
+.nav::-webkit-scrollbar{display:none;}
+.nav-btn{flex-shrink:0;padding:13px 16px 11px;font-size:13px;font-weight:500;color:var(--muted);border:none;background:none;cursor:pointer;border-bottom:2.5px solid transparent;white-space:nowrap;font-family:var(--font);}
+.nav-btn.active{color:var(--accent);border-bottom-color:var(--accent);}
 
-.page { display: none; padding: 16px; padding-bottom: 80px; }
-.page.active { display: block; }
+.page{display:none;padding:16px;padding-bottom:100px;}
+.page.active{display:block;}
 
-.card { background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); padding: 16px; margin-bottom: 12px; }
-.card-title { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .6px; margin-bottom: 12px; }
+.card{background:var(--surface);border-radius:var(--radius);border:1px solid var(--border);padding:16px;margin-bottom:12px;}
+.card-title{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:12px;}
 
-.field { margin-bottom: 13px; }
-.field:last-child { margin-bottom: 0; }
-.field label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 5px; font-weight: 500; }
-.field input, .field select, .field textarea {
-  width: 100%; padding: 11px 13px; border: 1px solid var(--border); border-radius: 8px;
-  font-size: 15px; font-family: var(--font); background: var(--bg); color: var(--text);
-  -webkit-appearance: none; outline: none; transition: border-color .2s, background .2s;
+.field{margin-bottom:13px;}
+.field:last-child{margin-bottom:0;}
+.field label{display:block;font-size:13px;color:var(--muted);margin-bottom:5px;font-weight:500;}
+.field input,.field select,.field textarea{
+  width:100%;padding:11px 13px;border:1px solid var(--border);border-radius:8px;
+  font-size:15px;font-family:var(--font);background:var(--bg);color:var(--text);
+  -webkit-appearance:none;outline:none;transition:border-color .2s,background .2s;
 }
-.field input:focus, .field select:focus, .field textarea:focus { border-color: var(--accent); background: #fff; }
-.field textarea { height: 80px; resize: none; line-height: 1.6; }
-.auto-field { background: #f0fdf4 !important; border-color: #bbf7d0 !important; color: #166534 !important; font-weight: 600; }
-.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent);background:#fff;}
+.field textarea{height:72px;resize:none;line-height:1.6;}
+.auto-field{background:#f0fdf4!important;border-color:#bbf7d0!important;color:#166534!important;font-weight:600;}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 
-.brand-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-.brand-pill { padding: 11px 6px; border-radius: 10px; border: 2px solid transparent; text-align: center; cursor: pointer; font-size: 12px; font-weight: 700; transition: all .15s; line-height: 1.4; }
-.brand-pill.selected { border-color: currentColor; box-shadow: 0 2px 8px rgba(0,0,0,.1); }
-.pill-FL  { background: #FEE2E2; color: #C8102E; }
-.pill-SV  { background: #FFF1EB; color: #E05A00; }
-.pill-BT   { background: #EDE9FE; color: #6D28D9; }
-.pill-LVA  { background: #FCE7F3; color: #BE185D; }
-.pill-SA  { background: #E0F2FE; color: #0369A1; }
-.pill-MD { background: #D1FAE5; color: #065F46; }
-.pill-N  { background: #FEF3C7; color: #92400E; }
+.brand-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;}
+.brand-pill{padding:9px 4px;border-radius:10px;border:2px solid transparent;text-align:center;cursor:pointer;font-size:11px;font-weight:700;line-height:1.4;transition:all .15s;}
+.brand-pill.selected{border-color:currentColor;box-shadow:0 2px 8px rgba(0,0,0,.12);}
+.pill-FL{background:#FEE2E2;color:#C8102E;}
+.pill-SV{background:#FCE7F3;color:#BE185D;}
+.pill-BT{background:#EDE9FE;color:#6D28D9;}
+.pill-N {background:#FEF3C7;color:#92400E;}
+.pill-LVA{background:#D1FAE5;color:#065F46;}
+.pill-MD{background:#E0F2FE;color:#0369A1;}
+.pill-SA{background:#FFF7ED;color:#C2410C;}
+.pill-DA{background:#E0E7FF;color:#3730A3;}
 
-.color-picker { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
-.color-item { text-align: center; cursor: pointer; }
-.cdot { width: 30px; height: 30px; border-radius: 50%; border: 3px solid transparent; margin: 0 auto; transition: transform .15s, border-color .15s; }
-.cdot.sel { border-color: #1A1814 !important; transform: scale(1.18); }
-.cdot-lbl { font-size: 10px; color: var(--muted); margin-top: 3px; }
+/* ── 顏色標籤輸入 ── */
+.color-tag-box{
+  min-height:46px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;
+  padding:8px 10px;border:1px solid var(--border);border-radius:8px;background:var(--bg);
+  cursor:text;transition:border-color .2s;
+}
+.color-tag-box:focus-within{border-color:var(--accent);background:#fff;}
+.color-chip{display:inline-flex;align-items:center;gap:3px;background:var(--accent);color:#fff;
+  padding:4px 10px;border-radius:20px;font-size:13px;font-weight:500;white-space:nowrap;}
+.color-chip-del{cursor:pointer;font-size:16px;line-height:1;opacity:.7;margin-left:1px;}
+.color-chip-del:hover{opacity:1;}
+.color-tag-input{border:none;outline:none;background:transparent;font-size:14px;font-family:var(--font);
+  color:var(--text);min-width:100px;flex:1;padding:2px 0;}
+.color-hint{font-size:12px;color:var(--muted);margin-top:5px;line-height:1.5;}
 
-.tag-wrap { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
-.tag { padding: 7px 13px; border-radius: 20px; font-size: 13px; font-weight: 500; cursor: pointer; border: 1.5px solid transparent; transition: all .15s; user-select: none; }
-.tag-pro { background: #f0fdf4; color: #166534; border-color: #bbf7d0; }
-.tag-pro.sel { background: #166534; color: #fff; border-color: #166534; }
-.tag-con { background: #fff1f2; color: #9f1239; border-color: #fecdd3; }
-.tag-con.sel { background: #9f1239; color: #fff; border-color: #9f1239; }
+/* ── 多筆列表 ── */
+.batch-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.batch-count{font-size:13px;color:var(--muted);}
+.batch-count strong{color:var(--accent);}
 
-.btn-main { width: 100%; padding: 15px; background: var(--accent); color: #fff; border: none; border-radius: var(--radius); font-size: 16px; font-weight: 700; font-family: var(--font); cursor: pointer; margin-top: 4px; transition: opacity .2s; letter-spacing: .5px; }
-.btn-main:active { opacity: .8; }
-.btn-main:disabled { opacity: .5; }
-.btn-ghost { width: 100%; padding: 12px; background: transparent; color: var(--accent); border: 1.5px solid var(--accent); border-radius: var(--radius); font-size: 14px; font-weight: 700; font-family: var(--font); cursor: pointer; margin-top: 8px; }
+.item-card{background:var(--surface);border-radius:var(--radius);border:1.5px solid var(--border);margin-bottom:10px;overflow:hidden;transition:border-color .2s;}
+.item-card.editing{border-color:var(--accent);}
+.item-head{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;cursor:pointer;user-select:none;}
+.item-head-left{display:flex;align-items:center;gap:10px;}
+.item-num{width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.item-title{font-size:14px;font-weight:700;}
+.item-sub{font-size:12px;color:var(--muted);margin-top:2px;}
+.item-right{display:flex;align-items:center;gap:8px;}
+.status-badge{font-size:11px;font-weight:700;padding:3px 8px;border-radius:10px;}
+.badge-draft{background:#FEF3C7;color:#92400E;}
+.badge-done{background:#D1FAE5;color:#065F46;}
+.btn-del{background:none;border:none;font-size:18px;cursor:pointer;color:#ddd;padding:4px;line-height:1;transition:color .15s;}
+.btn-del:hover{color:#9f1239;}
+.chevron{font-size:12px;color:var(--muted);transition:transform .2s;margin-left:2px;}
+.chevron.open{transform:rotate(180deg);}
+.item-body{display:none;padding:0 14px 16px;}
+.item-body.open{display:block;}
+.sub-label{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin:14px 0 8px;}
 
-/* sending overlay */
-.overlay { position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 200; display: flex; align-items: center; justify-content: center; display: none; }
-.overlay.show { display: flex; }
-.overlay-box { background: #fff; border-radius: 16px; padding: 28px 32px; text-align: center; }
-.spinner { width: 36px; height: 36px; border: 3px solid #eee; border-top-color: var(--accent); border-radius: 50%; animation: spin .7s linear infinite; margin: 0 auto 12px; }
-@keyframes spin { to { transform: rotate(360deg); } }
-.overlay-box p { font-size: 15px; font-weight: 500; color: var(--text); }
+/* ── buttons ── */
+.btn-add{width:100%;padding:13px;background:transparent;color:var(--accent);border:1.5px dashed var(--accent);border-radius:var(--radius);font-size:15px;font-weight:700;font-family:var(--font);cursor:pointer;margin-bottom:12px;transition:background .15s;}
+.btn-add:hover{background:#fdf2f6;}
+.btn-main{width:100%;padding:15px;background:var(--accent);color:#fff;border:none;border-radius:var(--radius);font-size:16px;font-weight:700;font-family:var(--font);cursor:pointer;transition:opacity .2s;letter-spacing:.5px;}
+.btn-main:active{opacity:.8;}
+.btn-main:disabled{opacity:.5;}
+.btn-ghost{width:100%;padding:12px;background:transparent;color:var(--muted);border:1.5px solid var(--border);border-radius:var(--radius);font-size:14px;font-family:var(--font);cursor:pointer;margin-top:8px;}
 
-.toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(60px); background: #1A1814; color: #fff; padding: 12px 22px; border-radius: 24px; font-size: 14px; font-weight: 500; opacity: 0; transition: all .3s; z-index: 300; white-space: nowrap; pointer-events: none; }
-.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-.toast.err { background: #9f1239; }
+.tag-wrap{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;}
+.tag{padding:7px 13px;border-radius:20px;font-size:13px;font-weight:500;cursor:pointer;border:1.5px solid transparent;transition:all .15s;user-select:none;}
+.tag-pro{background:#f0fdf4;color:#166534;border-color:#bbf7d0;}
+.tag-pro.sel{background:#166534;color:#fff;border-color:#166534;}
+.tag-con{background:#fff1f2;color:#9f1239;border-color:#fecdd3;}
+.tag-con.sel{background:#9f1239;color:#fff;border-color:#9f1239;}
 
-.section-sep { height: 1px; background: var(--border); margin: 14px 0; }
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;align-items:center;justify-content:center;display:none;}
+.overlay.show{display:flex;}
+.overlay-box{background:#fff;border-radius:16px;padding:28px 32px;text-align:center;min-width:220px;}
+.spinner{width:36px;height:36px;border:3px solid #eee;border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 12px;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.overlay-box p{font-size:15px;font-weight:500;}
+.overlay-sub{font-size:13px;color:var(--muted);margin-top:6px;}
+
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(60px);background:#1A1814;color:#fff;padding:12px 22px;border-radius:24px;font-size:14px;font-weight:500;opacity:0;transition:all .3s;z-index:300;white-space:nowrap;pointer-events:none;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+.toast.err{background:#9f1239;}
+
+.success-wrap{display:none;text-align:center;padding:52px 24px;}
+.success-wrap.show{display:block;}
+.success-icon{font-size:60px;margin-bottom:16px;}
+.success-wrap h2{font-size:20px;font-weight:700;margin-bottom:8px;}
+.success-wrap p{font-size:14px;color:var(--muted);line-height:1.8;}
 </style>
 </head>
 <body>
@@ -94,7 +135,7 @@ html, body { font-family: var(--font); background: var(--bg); color: var(--text)
   <div class="header-icon">👗</div>
   <div>
     <h1>販賣指導員月報</h1>
-    <p>桃園販賣部 · 填寫後自動同步至後台</p>
+    <p id="hdr-date">桃園販賣部 · 填寫後自動同步至後台</p>
   </div>
 </div>
 
@@ -103,133 +144,67 @@ html, body { font-family: var(--font); background: var(--bg); color: var(--text)
   <button class="nav-btn" onclick="gotoPage('feedback',this)">💬 銷售反饋</button>
 </nav>
 
-<!-- ══ PAGE 1: 進銷登錄 ══ -->
+<!-- ════ PAGE 1: 進銷登錄 ════ -->
 <div class="page active" id="pg-entry">
 
   <div class="card">
-    <div class="card-title">基本資訊</div>
+    <div class="card-title">基本資訊（本批共用）</div>
     <div class="row2">
       <div class="field">
         <label>年月 *</label>
         <input type="month" id="e-month">
       </div>
       <div class="field">
-        <label>指導員姓名 *</label>
+        <label>姓名 *</label>
         <input type="text" id="e-staff" placeholder="您的姓名">
       </div>
     </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">品牌選擇 *</div>
-    <div class="brand-grid">
-      <div class="brand-pill pill-FL selected" data-brand="FL" onclick="selectBrand(this)">FL<br><small style="font-weight:400">華歌爾</small></div>
-      <div class="brand-pill pill-SV" data-brand="SV" onclick="selectBrand(this)">SV<br><small style="font-weight:400">莎薇</small></div>
-      <div class="brand-pill pill-BT"  data-brand="BT"  onclick="selectBrand(this)">BT<br><small style="font-weight:400">嬪婷</small></div>
-      <div class="brand-pill pill-LVA" data-brand="LVA" onclick="selectBrand(this)">LVA<br><small style="font-weight:400">金華歌爾</small></div>
-      <div class="brand-pill pill-SA" data-brand="SA" onclick="selectBrand(this)">SA<br><small style="font-weight:400">莎露</small></div>
-      <div class="brand-pill pill-DA" data-brand="DA" onclick="selectBrand(this)">DA<br><small style="font-weight:400">男褲</small></div>
-      <div class="brand-pill pill-MD" data-brand="MD" onclick="selectBrand(this)">MD<br><small style="font-weight:400">寶貝媽咪</small></div>
-      <div class="brand-pill pill-N" data-brand="N" onclick="selectBrand(this)">N<br><small style="font-weight:400">睡衣</small></div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">商品資訊</div>
     <div class="row2">
       <div class="field">
-        <label>上市日</label>
-        <input type="text" id="e-launch" placeholder="例：4/27">
+        <label>櫃台</label>
+        <input type="text" id="e-counter" placeholder="例：新光三越A館">
       </div>
       <div class="field">
-        <label>貨號 *</label>
-        <input type="text" id="e-sku" placeholder="例：ZB4340">
+        <label>工號</label>
+        <input type="text" id="e-empid" placeholder="例：A0123">
       </div>
-    </div>
-    <div class="field">
-      <label>系列名稱</label>
-      <input type="text" id="e-series" placeholder="例：摩奇Good Fit大V美背">
     </div>
   </div>
 
-  <div class="card">
-    <div class="card-title">進銷存數量</div>
-    <div class="row2">
-      <div class="field">
-        <label>上期庫存</label>
-        <input type="number" id="e-prev" placeholder="0" oninput="calcStock()">
-      </div>
-      <div class="field">
-        <label>本期進貨</label>
-        <input type="number" id="e-in" placeholder="0" oninput="calcStock()">
-      </div>
-    </div>
-    <div class="row2">
-      <div class="field">
-        <label>本期銷售</label>
-        <input type="number" id="e-sold" placeholder="0" oninput="calcStock()">
-      </div>
-      <div class="field">
-        <label>期末庫存（自動）</label>
-        <input class="auto-field" type="text" id="e-stock" readonly>
-      </div>
-    </div>
-    <div class="field">
-      <label>銷售率（自動）</label>
-      <input class="auto-field" type="text" id="e-rate" readonly>
-    </div>
+  <div class="batch-bar">
+    <div class="batch-count">共 <strong id="item-count">0</strong> 筆商品</div>
+    <div style="font-size:12px;color:var(--muted)">點商品可展開編輯</div>
   </div>
 
-  <div class="card">
-    <div class="card-title">主銷顏色（可多選）</div>
-    <div class="color-picker">
-      <div class="color-item"><div class="cdot" style="background:#1A1814" data-c="黑色" onclick="toggleDot(this)"></div><div class="cdot-lbl">黑色</div></div>
-      <div class="color-item"><div class="cdot" style="background:#F5F0E8;border:1px solid #ccc" data-c="米白" onclick="toggleDot(this)"></div><div class="cdot-lbl">米白</div></div>
-      <div class="color-item"><div class="cdot" style="background:#F4C0D1" data-c="裸粉" onclick="toggleDot(this)"></div><div class="cdot-lbl">裸粉</div></div>
-      <div class="color-item"><div class="cdot" style="background:#d4a574" data-c="膚色" onclick="toggleDot(this)"></div><div class="cdot-lbl">膚色</div></div>
-      <div class="color-item"><div class="cdot" style="background:#C8102E" data-c="紅色" onclick="toggleDot(this)"></div><div class="cdot-lbl">紅色</div></div>
-      <div class="color-item"><div class="cdot" style="background:#D4537E" data-c="玫瑰" onclick="toggleDot(this)"></div><div class="cdot-lbl">玫瑰</div></div>
-      <div class="color-item"><div class="cdot" style="background:#8B5CF6" data-c="紫色" onclick="toggleDot(this)"></div><div class="cdot-lbl">紫色</div></div>
-      <div class="color-item"><div class="cdot" style="background:#378ADD" data-c="藍色" onclick="toggleDot(this)"></div><div class="cdot-lbl">藍色</div></div>
-      <div class="color-item"><div class="cdot" style="background:#5DCAA5" data-c="薄荷" onclick="toggleDot(this)"></div><div class="cdot-lbl">薄荷</div></div>
-      <div class="color-item"><div class="cdot" style="background:#EF9F27" data-c="橙黃" onclick="toggleDot(this)"></div><div class="cdot-lbl">橙黃</div></div>
-      <div class="color-item"><div class="cdot" style="background:#888780" data-c="灰色" onclick="toggleDot(this)"></div><div class="cdot-lbl">灰色</div></div>
-      <div class="color-item"><div class="cdot" style="background:#3a5a40" data-c="墨綠" onclick="toggleDot(this)"></div><div class="cdot-lbl">墨綠</div></div>
-    </div>
-  </div>
+  <div id="items-container"></div>
 
-  <div class="card">
-    <div class="field">
-      <label>備註</label>
-      <textarea id="e-note" placeholder="其他說明、特殊狀況..."></textarea>
-    </div>
-  </div>
+  <button class="btn-add" onclick="addItem()">＋ 新增一筆商品</button>
+  <button class="btn-main" id="btn-submit-all" onclick="submitAll()">📤 全部送出並同步至後台</button>
+  <button class="btn-ghost" onclick="clearAll()">清除重填</button>
 
-  <button class="btn-main" id="btn-entry" onclick="submitEntry()">📤 送出並同步至後台</button>
-  <button class="btn-ghost" onclick="clearEntry()">清除重填</button>
+  <div class="success-wrap" id="success-wrap">
+    <div class="success-icon">✅</div>
+    <h2>送出成功！</h2>
+    <p id="success-msg"></p>
+    <br>
+    <button class="btn-main" onclick="resetAfterSuccess()" style="max-width:200px;margin:0 auto;display:block;">繼續填寫下一批</button>
+  </div>
 </div>
 
-<!-- ══ PAGE 2: 銷售反饋 ══ -->
+<!-- ════ PAGE 2: 銷售反饋 ════ -->
 <div class="page" id="pg-feedback">
-
   <div class="card">
     <div class="card-title">基本資訊</div>
     <div class="row2">
-      <div class="field">
-        <label>年月 *</label>
-        <input type="month" id="fb-month">
-      </div>
-      <div class="field">
-        <label>指導員姓名 *</label>
-        <input type="text" id="fb-staff" placeholder="您的姓名">
-      </div>
+      <div class="field"><label>年月 *</label><input type="month" id="fb-month"></div>
+      <div class="field"><label>姓名 *</label><input type="text" id="fb-staff" placeholder="您的姓名"></div>
     </div>
-    <div class="field">
-      <label>品牌 / 系列</label>
-      <input type="text" id="fb-product" placeholder="例：FL 摩奇Good Fit大V美背">
+    <div class="row2">
+      <div class="field"><label>櫃台</label><input type="text" id="fb-counter" placeholder="例：新光三越A館"></div>
+      <div class="field"><label>工號</label><input type="text" id="fb-empid" placeholder="例：A0123"></div>
     </div>
+    <div class="field"><label>品牌 / 系列</label><input type="text" id="fb-product" placeholder="例：FL 摩奇Good Fit大V美背"></div>
   </div>
-
   <div class="card">
     <div class="card-title">商品優點（可多選）</div>
     <div class="tag-wrap" id="pros-wrap">
@@ -246,8 +221,11 @@ html, body { font-family: var(--font); background: var(--bg); color: var(--text)
       <div class="tag tag-pro" onclick="toggleTag(this)">上托效果好</div>
       <div class="tag tag-pro" onclick="toggleTag(this)">無痕設計</div>
     </div>
+    <div style="display:flex;gap:8px;margin-top:10px;align-items:center;">
+      <input type="text" id="pro-custom-input" placeholder="其他優點，按 Enter 新增" style="flex:1;padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:14px;font-family:var(--font);background:var(--bg);outline:none;" onkeydown="addCustomTag(event,'pros-wrap','pro','pro-custom-input')">
+      <button onclick="addCustomTagBtn('pros-wrap','pro','pro-custom-input')" style="padding:8px 14px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;font-family:var(--font);cursor:pointer;white-space:nowrap;">＋ 新增</button>
+    </div>
   </div>
-
   <div class="card">
     <div class="card-title">商品缺點（可多選）</div>
     <div class="tag-wrap" id="cons-wrap">
@@ -264,187 +242,363 @@ html, body { font-family: var(--font); background: var(--bg); color: var(--text)
       <div class="tag tag-con" onclick="toggleTag(this)">版型不合身</div>
       <div class="tag tag-con" onclick="toggleTag(this)">洗後變形</div>
     </div>
+    <div style="display:flex;gap:8px;margin-top:10px;align-items:center;">
+      <input type="text" id="con-custom-input" placeholder="其他缺點，按 Enter 新增" style="flex:1;padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:14px;font-family:var(--font);background:var(--bg);outline:none;" onkeydown="addCustomTag(event,'cons-wrap','con','con-custom-input')">
+      <button onclick="addCustomTagBtn('cons-wrap','con','con-custom-input')" style="padding:8px 14px;background:#9f1239;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;font-family:var(--font);cursor:pointer;white-space:nowrap;">＋ 新增</button>
+    </div>
   </div>
-
   <div class="card">
     <div class="card-title">市場反應與建議</div>
-    <div class="field">
-      <label>客戶市場反應</label>
-      <textarea id="fb-reaction" placeholder="客人的主要反應、詢問狀況、常見問題..."></textarea>
-    </div>
-    <div class="field">
-      <label>銷售建議事項</label>
-      <textarea id="fb-suggest" placeholder="對後續補貨、商品調整、促銷活動的建議..."></textarea>
-    </div>
+    <div class="field"><label>客戶市場反應</label><textarea id="fb-reaction" placeholder="客人的主要反應、詢問狀況..."></textarea></div>
+    <div class="field"><label>銷售建議事項</label><textarea id="fb-suggest" placeholder="對後續補貨、商品調整的建議..."></textarea></div>
   </div>
-
   <button class="btn-main" id="btn-fb" onclick="submitFeedback()">📤 送出並同步至後台</button>
 </div>
 
-<!-- overlay -->
 <div class="overlay" id="overlay">
   <div class="overlay-box">
     <div class="spinner"></div>
     <p id="overlay-msg">資料上傳中...</p>
+    <div class="overlay-sub" id="overlay-sub"></div>
   </div>
 </div>
 <div class="toast" id="toast"></div>
 
 <script>
 const API = 'https://script.google.com/macros/s/AKfycbw_HcpwkQqX8KmslZakdB0ajihY0O0edYhwDmshPOxTri-zC81GW1aQ3Eq9DY9YVcdewg/exec';
+const BRANDS = {FL:'華歌爾',SV:'莎薇',BT:'嬪婷',N:'睡衣',LVA:'金華歌爾',MD:'寶貝媽咪',SA:'莎露',DA:'男褲'};
 
-// init month
+let items = [];
+let seq = 0;
+
+// ── init ──
 (function(){
   const now = new Date();
   const m = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
-  document.getElementById('e-month').value = m;
-  document.getElementById('fb-month').value = m;
-  // restore staff name
-  const saved = localStorage.getItem('staff_name');
-  if (saved) {
-    document.getElementById('e-staff').value = saved;
-    document.getElementById('fb-staff').value = saved;
-  }
+  ['e-month','fb-month'].forEach(id => document.getElementById(id).value = m);
+  const yr = now.getFullYear()-1911, mo = now.getMonth()+1;
+  document.getElementById('hdr-date').textContent = `桃園販賣部 · ${yr}年${mo}月`;
+  const staff   = localStorage.getItem('staff_name');
+  const counter = localStorage.getItem('staff_counter');
+  const empid   = localStorage.getItem('staff_empid');
+  if (staff)   ['e-staff','fb-staff'].forEach(id => document.getElementById(id).value = staff);
+  if (counter) ['e-counter','fb-counter'].forEach(id => document.getElementById(id).value = counter);
+  if (empid)   ['e-empid','fb-empid'].forEach(id => document.getElementById(id).value = empid);
+  addItem();
 })();
 
-// page nav
 function gotoPage(id, btn) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('pg-' + id).classList.add('active');
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('pg-'+id).classList.add('active');
   btn.classList.add('active');
 }
 
-// brand
-let currentBrand = 'FL';
-function selectBrand(el) {
-  document.querySelectorAll('.brand-pill').forEach(p => p.classList.remove('selected'));
+// ── items ──
+function addItem() {
+  const id = ++seq;
+  items.push({id, brand:'FL', launch:'', sku:'', series:'', prev:0, inQty:0, sold:0, stock:0, rate:'', colors:[], note:''});
+  renderList();
+  setTimeout(() => expandItem(id), 60);
+}
+
+function removeItem(id) {
+  if (items.length === 1) { showToast('⚠ 至少保留一筆', true); return; }
+  items = items.filter(i => i.id !== id);
+  renderList();
+}
+
+function clearAll() {
+  if (!confirm('確定清除所有商品重新填寫？')) return;
+  items = []; seq = 0; addItem();
+}
+
+function getItem(id) { return items.find(i => i.id === id); }
+
+function renderList() {
+  document.getElementById('item-count').textContent = items.length;
+  document.getElementById('items-container').innerHTML = items.map((it, idx) => itemHTML(it, idx)).join('');
+  items.forEach(it => bindColor(it.id));
+}
+
+function itemHTML(it, idx) {
+  const done = !!it.sku;
+  const title = it.sku ? `${it.brand} · ${it.sku}` : `第 ${idx+1} 筆商品`;
+  const sub = it.series || (it.inQty ? `進貨 ${it.inQty} 件` : '尚未填寫');
+  const pills = Object.entries(BRANDS).map(([k,v]) =>
+    `<div class="brand-pill pill-${k}${it.brand===k?' selected':''}" data-brand="${k}" onclick="pickBrand(${it.id},'${k}',this)">${k}<br><small style="font-weight:400">${v}</small></div>`
+  ).join('');
+  const chips = it.colors.map((c,ci) =>
+    `<span class="color-chip">${c}<span class="color-chip-del" onclick="removeColor(${it.id},${ci})">×</span></span>`
+  ).join('');
+  return `
+  <div class="item-card" id="ic-${it.id}">
+    <div class="item-head" onclick="toggleItem(${it.id})">
+      <div class="item-head-left">
+        <div class="item-num">${idx+1}</div>
+        <div><div class="item-title" id="it-title-${it.id}">${title}</div><div class="item-sub" id="it-sub-${it.id}">${sub}</div></div>
+      </div>
+      <div class="item-right">
+        <span class="status-badge ${done?'badge-done':'badge-draft'}" id="it-badge-${it.id}">${done?'✓ 完成':'草稿'}</span>
+        <button class="btn-del" onclick="event.stopPropagation();removeItem(${it.id})">🗑</button>
+        <span class="chevron" id="it-chev-${it.id}">▼</span>
+      </div>
+    </div>
+    <div class="item-body" id="ib-${it.id}">
+      <div class="sub-label">品牌</div>
+      <div class="brand-grid" style="margin-bottom:14px">${pills}</div>
+
+      <div class="sub-label">商品資訊</div>
+      <div class="row2" style="margin-bottom:10px">
+        <div class="field"><label>上市日</label><input type="text" value="${it.launch}" placeholder="例：4/27" oninput="setField(${it.id},'launch',this.value)"></div>
+        <div class="field"><label>貨號 *</label><input type="text" value="${it.sku}" placeholder="例：ZB4340" oninput="setField(${it.id},'sku',this.value.toUpperCase());this.value=this.value.toUpperCase()"></div>
+      </div>
+      <div class="field" style="margin-bottom:14px"><label>系列名稱</label><input type="text" value="${it.series}" placeholder="例：摩奇Good Fit大V美背" oninput="setField(${it.id},'series',this.value)"></div>
+
+      <div class="sub-label">進銷存數量</div>
+      <div class="row2" style="margin-bottom:10px">
+        <div class="field"><label>上期庫存</label><input type="number" value="${it.prev||''}" placeholder="0" oninput="setNum(${it.id},'prev',this.value)"></div>
+        <div class="field"><label>本期進貨</label><input type="number" value="${it.inQty||''}" placeholder="0" oninput="setNum(${it.id},'inQty',this.value)"></div>
+      </div>
+      <div class="row2" style="margin-bottom:10px">
+        <div class="field"><label>本期銷售</label><input type="number" value="${it.sold||''}" placeholder="0" oninput="setNum(${it.id},'sold',this.value)"></div>
+        <div class="field"><label>期末庫存（自動）</label><input class="auto-field" type="text" id="auto-stock-${it.id}" value="${it.stock||''}" readonly></div>
+      </div>
+      <div class="field" style="margin-bottom:14px"><label>銷售率（自動）</label><input class="auto-field" type="text" id="auto-rate-${it.id}" value="${it.rate||''}" readonly></div>
+
+      <div class="sub-label">主銷顏色</div>
+      <div class="color-tag-box" id="ctb-${it.id}" onclick="document.getElementById('cti-${it.id}').focus()">
+        <span id="cts-${it.id}">${chips}</span>
+        <input class="color-tag-input" id="cti-${it.id}" placeholder="${it.colors.length?'繼續輸入...':'輸入顏色代碼，按 Enter 或逗號加入'}" autocomplete="off" spellcheck="false">
+      </div>
+      <div class="color-hint">例：BG、BO、GE、WH、BK … 可一次輸入多個用逗號分隔</div>
+
+      <div class="sub-label" style="margin-top:14px">備註</div>
+      <div class="field"><textarea placeholder="其他說明..." oninput="setField(${it.id},'note',this.value)">${it.note}</textarea></div>
+    </div>
+  </div>`;
+}
+
+function expandItem(id) {
+  document.getElementById('ib-'+id)?.classList.add('open');
+  document.getElementById('it-chev-'+id)?.classList.add('open');
+  document.getElementById('ic-'+id)?.classList.add('editing');
+}
+
+function toggleItem(id) {
+  const body = document.getElementById('ib-'+id);
+  const chev = document.getElementById('it-chev-'+id);
+  const card = document.getElementById('ic-'+id);
+  const open = body.classList.toggle('open');
+  chev.classList.toggle('open', open);
+  card.classList.toggle('editing', open);
+}
+
+function pickBrand(id, brand, el) {
+  const it = getItem(id); if (!it) return;
+  it.brand = brand;
+  el.closest('.brand-grid').querySelectorAll('.brand-pill').forEach(p=>p.classList.remove('selected'));
   el.classList.add('selected');
-  currentBrand = el.dataset.brand;
+  refreshHead(id);
 }
 
-// stock calc
-function calcStock() {
-  const prev = +document.getElementById('e-prev').value || 0;
-  const inQty = +document.getElementById('e-in').value || 0;
-  const sold = +document.getElementById('e-sold').value || 0;
-  const stock = Math.max(0, prev + inQty - sold);
-  const avail = prev + inQty;
-  const rate = avail > 0 ? Math.round(sold / avail * 100) : 0;
-  document.getElementById('e-stock').value = stock;
-  document.getElementById('e-rate').value = avail > 0 ? rate + '%' : '--';
+function setField(id, key, val) {
+  const it = getItem(id); if (!it) return;
+  it[key] = val; refreshHead(id);
 }
 
-// color & tag toggles
-function toggleDot(el) { el.classList.toggle('sel'); }
-function toggleTag(el) { el.classList.toggle('sel'); }
-function getColors() { return [...document.querySelectorAll('.cdot.sel')].map(e => e.dataset.c); }
-function getTags(wrapperId) { return [...document.querySelectorAll(`#${wrapperId} .tag.sel`)].map(e => e.textContent.trim()); }
+function setNum(id, key, val) {
+  const it = getItem(id); if (!it) return;
+  it[key] = parseFloat(val)||0;
+  const avail = it.prev + it.inQty;
+  it.stock = Math.max(0, avail - it.sold);
+  it.rate = avail > 0 ? Math.round(it.sold/avail*100)+'%' : '--';
+  const se = document.getElementById('auto-stock-'+id);
+  const re = document.getElementById('auto-rate-'+id);
+  if (se) se.value = it.stock;
+  if (re) re.value = it.rate;
+  refreshHead(id);
+}
 
-// toast
-function toast(msg, isErr) {
+function refreshHead(id) {
+  const it = getItem(id);
+  const idx = items.indexOf(it);
+  if (!it) return;
+  const tEl = document.getElementById('it-title-'+id);
+  const sEl = document.getElementById('it-sub-'+id);
+  const bEl = document.getElementById('it-badge-'+id);
+  const done = !!it.sku;
+  if (tEl) tEl.textContent = it.sku ? `${it.brand} · ${it.sku}` : `第 ${idx+1} 筆商品`;
+  if (sEl) sEl.textContent = it.series || (it.inQty ? `進貨 ${it.inQty} 件` : '尚未填寫');
+  if (bEl) { bEl.textContent = done?'✓ 完成':'草稿'; bEl.className='status-badge '+(done?'badge-done':'badge-draft'); }
+}
+
+// ── color chips ──
+function bindColor(id) {
+  const input = document.getElementById('cti-'+id);
+  if (!input) return;
+  input.addEventListener('keydown', e => {
+    if (e.key==='Enter' || e.key===',') {
+      e.preventDefault();
+      commitColor(id, input.value.replace(/,/g,'').trim());
+      input.value = '';
+    } else if (e.key==='Backspace' && !input.value) {
+      const it = getItem(id);
+      if (it?.colors.length) { it.colors.pop(); refreshChips(id); }
+    }
+  });
+  input.addEventListener('blur', () => {
+    const v = input.value.replace(/[,，]/g,'').trim();
+    if (v) { commitColor(id, v); input.value = ''; }
+  });
+}
+
+function commitColor(id, raw) {
+  if (!raw) return;
+  const it = getItem(id); if (!it) return;
+  raw.split(/[,，\s]+/).filter(Boolean).forEach(c => {
+    if (!it.colors.includes(c)) it.colors.push(c);
+  });
+  refreshChips(id);
+}
+
+function removeColor(id, idx) {
+  const it = getItem(id);
+  if (it) { it.colors.splice(idx,1); refreshChips(id); }
+}
+
+function refreshChips(id) {
+  const it = getItem(id); if (!it) return;
+  const span = document.getElementById('cts-'+id);
+  const input = document.getElementById('cti-'+id);
+  if (span) span.innerHTML = it.colors.map((c,ci) =>
+    `<span class="color-chip">${c}<span class="color-chip-del" onclick="removeColor(${id},${ci})">×</span></span>`
+  ).join('');
+  if (input) input.placeholder = it.colors.length ? '繼續輸入...' : '輸入顏色代碼，按 Enter 或逗號加入';
+}
+
+// ── toast & overlay ──
+function showToast(msg, err) {
   const el = document.getElementById('toast');
   el.textContent = msg;
-  el.className = 'toast' + (isErr ? ' err' : '') + ' show';
+  el.className = 'toast'+(err?' err':'')+' show';
   setTimeout(() => el.classList.remove('show'), 2800);
 }
-
-// overlay
-function showOverlay(msg) {
-  document.getElementById('overlay-msg').textContent = msg || '資料上傳中...';
+function showOverlay(msg, sub) {
+  document.getElementById('overlay-msg').textContent = msg||'';
+  document.getElementById('overlay-sub').textContent = sub||'';
   document.getElementById('overlay').classList.add('show');
 }
 function hideOverlay() { document.getElementById('overlay').classList.remove('show'); }
 
-// send to sheets
-async function sendToSheets(data) {
-  // Use no-cors mode via image trick for Apps Script (avoids CORS preflight)
-  // Actually use fetch with no-cors
-  await fetch(API, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
-  });
-}
-
-// submit entry
-async function submitEntry() {
-  const month = document.getElementById('e-month').value;
-  const staff = document.getElementById('e-staff').value.trim();
-  const sku   = document.getElementById('e-sku').value.trim();
-  if (!month || !staff || !sku) { toast('⚠ 請填寫年月、姓名與貨號', true); return; }
-
-  // save staff name for next time
-  localStorage.setItem('staff_name', staff);
-
-  const data = {
-    type: 'entry',
-    month, staff, brand: currentBrand,
-    launch: document.getElementById('e-launch').value.trim(),
-    series: document.getElementById('e-series').value.trim(),
-    sku: sku.toUpperCase(),
-    prev:  +document.getElementById('e-prev').value  || 0,
-    inQty: +document.getElementById('e-in').value    || 0,
-    sold:  +document.getElementById('e-sold').value  || 0,
-    stock: +document.getElementById('e-stock').value || 0,
-    rate:   document.getElementById('e-rate').value,
-    colors: getColors(),
-    note:   document.getElementById('e-note').value.trim()
-  };
-
-  document.getElementById('btn-entry').disabled = true;
-  showOverlay('上傳至 Google Sheets...');
-  try {
-    await sendToSheets(data);
-    hideOverlay();
-    toast('✔ 已成功同步至後台！');
-    clearEntry();
-  } catch(err) {
-    hideOverlay();
-    toast('❌ 上傳失敗，請檢查網路', true);
+// ── submit all ──
+async function submitAll() {
+  const month   = document.getElementById('e-month').value;
+  const staff   = document.getElementById('e-staff').value.trim();
+  const counter = document.getElementById('e-counter').value.trim();
+  const empid   = document.getElementById('e-empid').value.trim();
+  if (!month || !staff) { showToast('⚠ 請填寫年月與姓名', true); return; }
+  const noSku = items.filter(it => !it.sku);
+  if (noSku.length) {
+    const nums = noSku.map(it => items.indexOf(it)+1).join('、');
+    showToast(`⚠ 第 ${nums} 筆尚未填貨號`, true); return;
   }
-  document.getElementById('btn-entry').disabled = false;
+  localStorage.setItem('staff_name', staff);
+  if (counter) localStorage.setItem('staff_counter', counter);
+  if (empid)   localStorage.setItem('staff_empid', empid);
+  document.getElementById('btn-submit-all').disabled = true;
+  let ok = 0;
+  for (let i=0; i<items.length; i++) {
+    const it = items[i];
+    showOverlay(`上傳第 ${i+1} / ${items.length} 筆`, `${it.brand} · ${it.sku}`);
+    try {
+      await fetch(API, {method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({type:'entry', month, staff, counter, empid,
+          brand:it.brand, launch:it.launch, series:it.series, sku:it.sku,
+          prev:it.prev, inQty:it.inQty, sold:it.sold, stock:it.stock, rate:it.rate,
+          colors:it.colors, note:it.note})});
+      ok++;
+    } catch(e) {}
+    await new Promise(r => setTimeout(r, 350));
+  }
+  hideOverlay();
+  document.getElementById('btn-submit-all').disabled = false;
+  if (ok === items.length) {
+    // 隱藏表單，顯示成功畫面
+    ['items-container','btn-submit-all'].forEach(id => document.getElementById(id).style.display='none');
+    document.querySelector('.btn-add').style.display='none';
+    document.querySelector('.btn-ghost').style.display='none';
+    document.querySelector('.batch-bar').style.display='none';
+    document.getElementById('success-msg').textContent = `已成功送出 ${ok} 筆資料至 Google Sheets ✨`;
+    document.getElementById('success-wrap').classList.add('show');
+  } else {
+    showToast(`送出完成：${ok} 成功，${items.length-ok} 失敗`, ok < items.length);
+  }
 }
 
-// submit feedback
+function resetAfterSuccess() {
+  ['items-container','btn-submit-all'].forEach(id => document.getElementById(id).style.display='');
+  document.querySelector('.btn-add').style.display='';
+  document.querySelector('.btn-ghost').style.display='';
+  document.querySelector('.batch-bar').style.display='';
+  document.getElementById('success-wrap').classList.remove('show');
+  items = []; seq = 0; addItem();
+}
+
+// ── feedback ──
+function toggleTag(el) { el.classList.toggle('sel'); }
+function getTags(id) { return [...document.querySelectorAll(`#${id} .tag.sel`)].map(e=>e.textContent.trim()); }
+
 async function submitFeedback() {
-  const month = document.getElementById('fb-month').value;
-  const staff = document.getElementById('fb-staff').value.trim();
-  if (!month || !staff) { toast('⚠ 請填寫年月與姓名', true); return; }
-
+  const month   = document.getElementById('fb-month').value;
+  const staff   = document.getElementById('fb-staff').value.trim();
+  const counter = document.getElementById('fb-counter').value.trim();
+  const empid   = document.getElementById('fb-empid').value.trim();
+  if (!month || !staff) { showToast('⚠ 請填寫年月與姓名', true); return; }
   localStorage.setItem('staff_name', staff);
-
-  const data = {
-    type: 'feedback',
-    month, staff,
-    product:  document.getElementById('fb-product').value.trim(),
-    pros:     getTags('pros-wrap'),
-    cons:     getTags('cons-wrap'),
-    reaction: document.getElementById('fb-reaction').value.trim(),
-    suggest:  document.getElementById('fb-suggest').value.trim()
-  };
-
-  document.getElementById('btn-fb').disabled = true;
+  if (counter) localStorage.setItem('staff_counter', counter);
+  if (empid)   localStorage.setItem('staff_empid', empid);
   showOverlay('上傳反饋中...');
+  document.getElementById('btn-fb').disabled = true;
   try {
-    await sendToSheets(data);
+    await fetch(API, {method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({type:'feedback', month, staff, counter, empid,
+        product: document.getElementById('fb-product').value.trim(),
+        pros: getTags('pros-wrap'), cons: getTags('cons-wrap'),
+        reaction: document.getElementById('fb-reaction').value.trim(),
+        suggest: document.getElementById('fb-suggest').value.trim()})});
     hideOverlay();
-    toast('✔ 反饋已送出！');
-    document.querySelectorAll('#pros-wrap .tag, #cons-wrap .tag').forEach(t => t.classList.remove('sel'));
-    ['fb-product','fb-reaction','fb-suggest'].forEach(id => document.getElementById(id).value = '');
-  } catch(err) {
+    showToast('✔ 反饋已送出！');
+    document.querySelectorAll('#pros-wrap .tag,#cons-wrap .tag').forEach(t=>t.classList.remove('sel'));
+    ['fb-product','fb-reaction','fb-suggest','pro-custom-input','con-custom-input']
+      .forEach(id => { const el = document.getElementById(id); if(el) el.value=''; });
+  } catch(e) {
     hideOverlay();
-    toast('❌ 上傳失敗，請檢查網路', true);
+    showToast('❌ 上傳失敗，請檢查網路', true);
   }
   document.getElementById('btn-fb').disabled = false;
 }
 
-// clear
-function clearEntry() {
-  ['e-launch','e-sku','e-series','e-prev','e-in','e-sold','e-stock','e-rate','e-note']
-    .forEach(id => document.getElementById(id).value = '');
-  document.querySelectorAll('.cdot').forEach(e => e.classList.remove('sel'));
+// ── 自訂標籤（優缺點） ──
+function addCustomTag(e, wrapperId, type, inputId) {
+  if (e.key !== 'Enter') return;
+  e.preventDefault();
+  _doAddCustomTag(wrapperId, type, inputId);
+}
+function addCustomTagBtn(wrapperId, type, inputId) {
+  _doAddCustomTag(wrapperId, type, inputId);
+}
+function _doAddCustomTag(wrapperId, type, inputId) {
+  const input = document.getElementById(inputId);
+  const val = input.value.trim();
+  if (!val) return;
+  const wrap = document.getElementById(wrapperId);
+  const tag = document.createElement('div');
+  tag.className = `tag tag-${type} sel`;
+  tag.textContent = val;
+  tag.onclick = () => toggleTag(tag);
+  wrap.appendChild(tag);
+  input.value = '';
 }
 </script>
 </body>
