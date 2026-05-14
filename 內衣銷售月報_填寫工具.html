@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>販賣指導員月報填寫</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap');
+:root {
+  --accent: #D4537E; --bg: #F5F3EF; --surface: #fff;
+  --border: #E5E2DC; --text: #1A1814; --muted: #8A8680;
+  --radius: 12px; --font: 'Noto Sans TC', sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html, body { font-family: var(--font); background: var(--bg); color: var(--text); font-size: 15px; }
+
+.header { background: var(--surface); padding: 18px 16px 14px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; }
+.header-icon { width: 38px; height: 38px; background: var(--accent); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+.header h1 { font-size: 17px; font-weight: 700; }
+.header p { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+.nav { position: sticky; top: 0; z-index: 100; background: var(--surface); border-bottom: 1px solid var(--border); display: flex; overflow-x: auto; }
+.nav::-webkit-scrollbar { display: none; }
+.nav-btn { flex-shrink: 0; padding: 13px 16px 11px; font-size: 13px; font-weight: 500; color: var(--muted); border: none; background: none; cursor: pointer; border-bottom: 2.5px solid transparent; white-space: nowrap; transition: color .2s, border-color .2s; font-family: var(--font); }
+.nav-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+.page { display: none; padding: 16px; padding-bottom: 80px; }
+.page.active { display: block; }
+
+.card { background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); padding: 16px; margin-bottom: 12px; }
+.card-title { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .6px; margin-bottom: 12px; }
+
+.field { margin-bottom: 13px; }
+.field:last-child { margin-bottom: 0; }
+.field label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 5px; font-weight: 500; }
+.field input, .field select, .field textarea {
+  width: 100%; padding: 11px 13px; border: 1px solid var(--border); border-radius: 8px;
+  font-size: 15px; font-family: var(--font); background: var(--bg); color: var(--text);
+  -webkit-appearance: none; outline: none; transition: border-color .2s, background .2s;
+}
+.field input:focus, .field select:focus, .field textarea:focus { border-color: var(--accent); background: #fff; }
+.field textarea { height: 80px; resize: none; line-height: 1.6; }
+.auto-field { background: #f0fdf4 !important; border-color: #bbf7d0 !important; color: #166534 !important; font-weight: 600; }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+.brand-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.brand-pill { padding: 11px 6px; border-radius: 10px; border: 2px solid transparent; text-align: center; cursor: pointer; font-size: 12px; font-weight: 700; transition: all .15s; line-height: 1.4; }
+.brand-pill.selected { border-color: currentColor; box-shadow: 0 2px 8px rgba(0,0,0,.1); }
+.pill-FL  { background: #FEE2E2; color: #C8102E; }
+.pill-SV  { background: #FFF1EB; color: #E05A00; }
+.pill-BT   { background: #EDE9FE; color: #6D28D9; }
+.pill-LVA  { background: #FCE7F3; color: #BE185D; }
+.pill-SA  { background: #E0F2FE; color: #0369A1; }
+.pill-MD { background: #D1FAE5; color: #065F46; }
+.pill-N  { background: #FEF3C7; color: #92400E; }
+
+.color-picker { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
+.color-item { text-align: center; cursor: pointer; }
+.cdot { width: 30px; height: 30px; border-radius: 50%; border: 3px solid transparent; margin: 0 auto; transition: transform .15s, border-color .15s; }
+.cdot.sel { border-color: #1A1814 !important; transform: scale(1.18); }
+.cdot-lbl { font-size: 10px; color: var(--muted); margin-top: 3px; }
+
+.tag-wrap { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+.tag { padding: 7px 13px; border-radius: 20px; font-size: 13px; font-weight: 500; cursor: pointer; border: 1.5px solid transparent; transition: all .15s; user-select: none; }
+.tag-pro { background: #f0fdf4; color: #166534; border-color: #bbf7d0; }
+.tag-pro.sel { background: #166534; color: #fff; border-color: #166534; }
+.tag-con { background: #fff1f2; color: #9f1239; border-color: #fecdd3; }
+.tag-con.sel { background: #9f1239; color: #fff; border-color: #9f1239; }
+
+.btn-main { width: 100%; padding: 15px; background: var(--accent); color: #fff; border: none; border-radius: var(--radius); font-size: 16px; font-weight: 700; font-family: var(--font); cursor: pointer; margin-top: 4px; transition: opacity .2s; letter-spacing: .5px; }
+.btn-main:active { opacity: .8; }
+.btn-main:disabled { opacity: .5; }
+.btn-ghost { width: 100%; padding: 12px; background: transparent; color: var(--accent); border: 1.5px solid var(--accent); border-radius: var(--radius); font-size: 14px; font-weight: 700; font-family: var(--font); cursor: pointer; margin-top: 8px; }
+
+/* sending overlay */
+.overlay { position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 200; display: flex; align-items: center; justify-content: center; display: none; }
+.overlay.show { display: flex; }
+.overlay-box { background: #fff; border-radius: 16px; padding: 28px 32px; text-align: center; }
+.spinner { width: 36px; height: 36px; border: 3px solid #eee; border-top-color: var(--accent); border-radius: 50%; animation: spin .7s linear infinite; margin: 0 auto 12px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.overlay-box p { font-size: 15px; font-weight: 500; color: var(--text); }
+
+.toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(60px); background: #1A1814; color: #fff; padding: 12px 22px; border-radius: 24px; font-size: 14px; font-weight: 500; opacity: 0; transition: all .3s; z-index: 300; white-space: nowrap; pointer-events: none; }
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.toast.err { background: #9f1239; }
+
+.section-sep { height: 1px; background: var(--border); margin: 14px 0; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-icon">👗</div>
+  <div>
+    <h1>販賣指導員月報</h1>
+    <p>桃園販賣部 · 填寫後自動同步至後台</p>
+  </div>
+</div>
+
+<nav class="nav">
+  <button class="nav-btn active" onclick="gotoPage('entry',this)">📋 進銷登錄</button>
+  <button class="nav-btn" onclick="gotoPage('feedback',this)">💬 銷售反饋</button>
+</nav>
+
+<!-- ══ PAGE 1: 進銷登錄 ══ -->
+<div class="page active" id="pg-entry">
+
+  <div class="card">
+    <div class="card-title">基本資訊</div>
+    <div class="row2">
+      <div class="field">
+        <label>年月 *</label>
+        <input type="month" id="e-month">
+      </div>
+      <div class="field">
+        <label>指導員姓名 *</label>
+        <input type="text" id="e-staff" placeholder="您的姓名">
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">品牌選擇 *</div>
+    <div class="brand-grid">
+      <div class="brand-pill pill-FL selected" data-brand="FL" onclick="selectBrand(this)">FL<br><small style="font-weight:400">華歌爾</small></div>
+      <div class="brand-pill pill-SV" data-brand="SV" onclick="selectBrand(this)">SV<br><small style="font-weight:400">莎薇</small></div>
+      <div class="brand-pill pill-BT"  data-brand="BT"  onclick="selectBrand(this)">BT<br><small style="font-weight:400">嬪婷</small></div>
+      <div class="brand-pill pill-LVA" data-brand="LVA" onclick="selectBrand(this)">LVA<br><small style="font-weight:400">金華歌爾</small></div>
+      <div class="brand-pill pill-SA" data-brand="SA" onclick="selectBrand(this)">SA<br><small style="font-weight:400">莎露</small></div>
+      <div class="brand-pill pill-DA" data-brand="DA" onclick="selectBrand(this)">DA<br><small style="font-weight:400">男褲</small></div>
+      <div class="brand-pill pill-MD" data-brand="MD" onclick="selectBrand(this)">MD<br><small style="font-weight:400">寶貝媽咪</small></div>
+      <div class="brand-pill pill-N" data-brand="N" onclick="selectBrand(this)">N<br><small style="font-weight:400">睡衣</small></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">商品資訊</div>
+    <div class="row2">
+      <div class="field">
+        <label>上市日</label>
+        <input type="text" id="e-launch" placeholder="例：4/27">
+      </div>
+      <div class="field">
+        <label>貨號 *</label>
+        <input type="text" id="e-sku" placeholder="例：ZB4340">
+      </div>
+    </div>
+    <div class="field">
+      <label>系列名稱</label>
+      <input type="text" id="e-series" placeholder="例：摩奇Good Fit大V美背">
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">進銷存數量</div>
+    <div class="row2">
+      <div class="field">
+        <label>上期庫存</label>
+        <input type="number" id="e-prev" placeholder="0" oninput="calcStock()">
+      </div>
+      <div class="field">
+        <label>本期進貨</label>
+        <input type="number" id="e-in" placeholder="0" oninput="calcStock()">
+      </div>
+    </div>
+    <div class="row2">
+      <div class="field">
+        <label>本期銷售</label>
+        <input type="number" id="e-sold" placeholder="0" oninput="calcStock()">
+      </div>
+      <div class="field">
+        <label>期末庫存（自動）</label>
+        <input class="auto-field" type="text" id="e-stock" readonly>
+      </div>
+    </div>
+    <div class="field">
+      <label>銷售率（自動）</label>
+      <input class="auto-field" type="text" id="e-rate" readonly>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">主銷顏色（可多選）</div>
+    <div class="color-picker">
+      <div class="color-item"><div class="cdot" style="background:#1A1814" data-c="黑色" onclick="toggleDot(this)"></div><div class="cdot-lbl">黑色</div></div>
+      <div class="color-item"><div class="cdot" style="background:#F5F0E8;border:1px solid #ccc" data-c="米白" onclick="toggleDot(this)"></div><div class="cdot-lbl">米白</div></div>
+      <div class="color-item"><div class="cdot" style="background:#F4C0D1" data-c="裸粉" onclick="toggleDot(this)"></div><div class="cdot-lbl">裸粉</div></div>
+      <div class="color-item"><div class="cdot" style="background:#d4a574" data-c="膚色" onclick="toggleDot(this)"></div><div class="cdot-lbl">膚色</div></div>
+      <div class="color-item"><div class="cdot" style="background:#C8102E" data-c="紅色" onclick="toggleDot(this)"></div><div class="cdot-lbl">紅色</div></div>
+      <div class="color-item"><div class="cdot" style="background:#D4537E" data-c="玫瑰" onclick="toggleDot(this)"></div><div class="cdot-lbl">玫瑰</div></div>
+      <div class="color-item"><div class="cdot" style="background:#8B5CF6" data-c="紫色" onclick="toggleDot(this)"></div><div class="cdot-lbl">紫色</div></div>
+      <div class="color-item"><div class="cdot" style="background:#378ADD" data-c="藍色" onclick="toggleDot(this)"></div><div class="cdot-lbl">藍色</div></div>
+      <div class="color-item"><div class="cdot" style="background:#5DCAA5" data-c="薄荷" onclick="toggleDot(this)"></div><div class="cdot-lbl">薄荷</div></div>
+      <div class="color-item"><div class="cdot" style="background:#EF9F27" data-c="橙黃" onclick="toggleDot(this)"></div><div class="cdot-lbl">橙黃</div></div>
+      <div class="color-item"><div class="cdot" style="background:#888780" data-c="灰色" onclick="toggleDot(this)"></div><div class="cdot-lbl">灰色</div></div>
+      <div class="color-item"><div class="cdot" style="background:#3a5a40" data-c="墨綠" onclick="toggleDot(this)"></div><div class="cdot-lbl">墨綠</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="field">
+      <label>備註</label>
+      <textarea id="e-note" placeholder="其他說明、特殊狀況..."></textarea>
+    </div>
+  </div>
+
+  <button class="btn-main" id="btn-entry" onclick="submitEntry()">📤 送出並同步至後台</button>
+  <button class="btn-ghost" onclick="clearEntry()">清除重填</button>
+</div>
+
+<!-- ══ PAGE 2: 銷售反饋 ══ -->
+<div class="page" id="pg-feedback">
+
+  <div class="card">
+    <div class="card-title">基本資訊</div>
+    <div class="row2">
+      <div class="field">
+        <label>年月 *</label>
+        <input type="month" id="fb-month">
+      </div>
+      <div class="field">
+        <label>指導員姓名 *</label>
+        <input type="text" id="fb-staff" placeholder="您的姓名">
+      </div>
+    </div>
+    <div class="field">
+      <label>品牌 / 系列</label>
+      <input type="text" id="fb-product" placeholder="例：FL 摩奇Good Fit大V美背">
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">商品優點（可多選）</div>
+    <div class="tag-wrap" id="pros-wrap">
+      <div class="tag tag-pro" onclick="toggleTag(this)">舒適度佳</div>
+      <div class="tag tag-pro" onclick="toggleTag(this)">設計感強</div>
+      <div class="tag tag-pro" onclick="toggleTag(this)">版型優良</div>
+      <div class="tag tag-pro" onclick="toggleTag(this)">尺碼齊全</div>
+      <div class="tag tag-pro" onclick="toggleTag(this)">材質透氣</div>
+      <div class="tag tag-pro" onclick="toggleTag(this)">定價合理</div>
+      <div class="tag tag-pro" onclick="toggleTag(this)">包裝精美</div>
+      <div class="tag tag-pro" onclick="toggleTag(this)">顏色豐富</div>
+      <div class="tag tag-pro" onclick="toggleTag(this)">機能性佳</div>
+      <div class="tag tag-pro" onclick="toggleTag(this)">客人回購率高</div>
+      <div class="tag tag-pro" onclick="toggleTag(this)">上托效果好</div>
+      <div class="tag tag-pro" onclick="toggleTag(this)">無痕設計</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">商品缺點（可多選）</div>
+    <div class="tag-wrap" id="cons-wrap">
+      <div class="tag tag-con" onclick="toggleTag(this)">尺碼偏小</div>
+      <div class="tag tag-con" onclick="toggleTag(this)">尺碼偏大</div>
+      <div class="tag tag-con" onclick="toggleTag(this)">顏色選項少</div>
+      <div class="tag tag-con" onclick="toggleTag(this)">鋼圈過硬</div>
+      <div class="tag tag-con" onclick="toggleTag(this)">備貨時間長</div>
+      <div class="tag tag-con" onclick="toggleTag(this)">退換麻煩</div>
+      <div class="tag tag-con" onclick="toggleTag(this)">定價偏高</div>
+      <div class="tag tag-con" onclick="toggleTag(this)">材質悶熱</div>
+      <div class="tag tag-con" onclick="toggleTag(this)">上托效果差</div>
+      <div class="tag tag-con" onclick="toggleTag(this)">庫存不足</div>
+      <div class="tag tag-con" onclick="toggleTag(this)">版型不合身</div>
+      <div class="tag tag-con" onclick="toggleTag(this)">洗後變形</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">市場反應與建議</div>
+    <div class="field">
+      <label>客戶市場反應</label>
+      <textarea id="fb-reaction" placeholder="客人的主要反應、詢問狀況、常見問題..."></textarea>
+    </div>
+    <div class="field">
+      <label>銷售建議事項</label>
+      <textarea id="fb-suggest" placeholder="對後續補貨、商品調整、促銷活動的建議..."></textarea>
+    </div>
+  </div>
+
+  <button class="btn-main" id="btn-fb" onclick="submitFeedback()">📤 送出並同步至後台</button>
+</div>
+
+<!-- overlay -->
+<div class="overlay" id="overlay">
+  <div class="overlay-box">
+    <div class="spinner"></div>
+    <p id="overlay-msg">資料上傳中...</p>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const API = 'https://script.google.com/macros/s/AKfycbw_HcpwkQqX8KmslZakdB0ajihY0O0edYhwDmshPOxTri-zC81GW1aQ3Eq9DY9YVcdewg/exec';
+
+// init month
+(function(){
+  const now = new Date();
+  const m = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
+  document.getElementById('e-month').value = m;
+  document.getElementById('fb-month').value = m;
+  // restore staff name
+  const saved = localStorage.getItem('staff_name');
+  if (saved) {
+    document.getElementById('e-staff').value = saved;
+    document.getElementById('fb-staff').value = saved;
+  }
+})();
+
+// page nav
+function gotoPage(id, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('pg-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// brand
+let currentBrand = 'FL';
+function selectBrand(el) {
+  document.querySelectorAll('.brand-pill').forEach(p => p.classList.remove('selected'));
+  el.classList.add('selected');
+  currentBrand = el.dataset.brand;
+}
+
+// stock calc
+function calcStock() {
+  const prev = +document.getElementById('e-prev').value || 0;
+  const inQty = +document.getElementById('e-in').value || 0;
+  const sold = +document.getElementById('e-sold').value || 0;
+  const stock = Math.max(0, prev + inQty - sold);
+  const avail = prev + inQty;
+  const rate = avail > 0 ? Math.round(sold / avail * 100) : 0;
+  document.getElementById('e-stock').value = stock;
+  document.getElementById('e-rate').value = avail > 0 ? rate + '%' : '--';
+}
+
+// color & tag toggles
+function toggleDot(el) { el.classList.toggle('sel'); }
+function toggleTag(el) { el.classList.toggle('sel'); }
+function getColors() { return [...document.querySelectorAll('.cdot.sel')].map(e => e.dataset.c); }
+function getTags(wrapperId) { return [...document.querySelectorAll(`#${wrapperId} .tag.sel`)].map(e => e.textContent.trim()); }
+
+// toast
+function toast(msg, isErr) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'toast' + (isErr ? ' err' : '') + ' show';
+  setTimeout(() => el.classList.remove('show'), 2800);
+}
+
+// overlay
+function showOverlay(msg) {
+  document.getElementById('overlay-msg').textContent = msg || '資料上傳中...';
+  document.getElementById('overlay').classList.add('show');
+}
+function hideOverlay() { document.getElementById('overlay').classList.remove('show'); }
+
+// send to sheets
+async function sendToSheets(data) {
+  // Use no-cors mode via image trick for Apps Script (avoids CORS preflight)
+  // Actually use fetch with no-cors
+  await fetch(API, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  });
+}
+
+// submit entry
+async function submitEntry() {
+  const month = document.getElementById('e-month').value;
+  const staff = document.getElementById('e-staff').value.trim();
+  const sku   = document.getElementById('e-sku').value.trim();
+  if (!month || !staff || !sku) { toast('⚠ 請填寫年月、姓名與貨號', true); return; }
+
+  // save staff name for next time
+  localStorage.setItem('staff_name', staff);
+
+  const data = {
+    type: 'entry',
+    month, staff, brand: currentBrand,
+    launch: document.getElementById('e-launch').value.trim(),
+    series: document.getElementById('e-series').value.trim(),
+    sku: sku.toUpperCase(),
+    prev:  +document.getElementById('e-prev').value  || 0,
+    inQty: +document.getElementById('e-in').value    || 0,
+    sold:  +document.getElementById('e-sold').value  || 0,
+    stock: +document.getElementById('e-stock').value || 0,
+    rate:   document.getElementById('e-rate').value,
+    colors: getColors(),
+    note:   document.getElementById('e-note').value.trim()
+  };
+
+  document.getElementById('btn-entry').disabled = true;
+  showOverlay('上傳至 Google Sheets...');
+  try {
+    await sendToSheets(data);
+    hideOverlay();
+    toast('✔ 已成功同步至後台！');
+    clearEntry();
+  } catch(err) {
+    hideOverlay();
+    toast('❌ 上傳失敗，請檢查網路', true);
+  }
+  document.getElementById('btn-entry').disabled = false;
+}
+
+// submit feedback
+async function submitFeedback() {
+  const month = document.getElementById('fb-month').value;
+  const staff = document.getElementById('fb-staff').value.trim();
+  if (!month || !staff) { toast('⚠ 請填寫年月與姓名', true); return; }
+
+  localStorage.setItem('staff_name', staff);
+
+  const data = {
+    type: 'feedback',
+    month, staff,
+    product:  document.getElementById('fb-product').value.trim(),
+    pros:     getTags('pros-wrap'),
+    cons:     getTags('cons-wrap'),
+    reaction: document.getElementById('fb-reaction').value.trim(),
+    suggest:  document.getElementById('fb-suggest').value.trim()
+  };
+
+  document.getElementById('btn-fb').disabled = true;
+  showOverlay('上傳反饋中...');
+  try {
+    await sendToSheets(data);
+    hideOverlay();
+    toast('✔ 反饋已送出！');
+    document.querySelectorAll('#pros-wrap .tag, #cons-wrap .tag').forEach(t => t.classList.remove('sel'));
+    ['fb-product','fb-reaction','fb-suggest'].forEach(id => document.getElementById(id).value = '');
+  } catch(err) {
+    hideOverlay();
+    toast('❌ 上傳失敗，請檢查網路', true);
+  }
+  document.getElementById('btn-fb').disabled = false;
+}
+
+// clear
+function clearEntry() {
+  ['e-launch','e-sku','e-series','e-prev','e-in','e-sold','e-stock','e-rate','e-note']
+    .forEach(id => document.getElementById(id).value = '');
+  document.querySelectorAll('.cdot').forEach(e => e.classList.remove('sel'));
+}
+</script>
+</body>
+</html>

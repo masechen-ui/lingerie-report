@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>販賣指導員月報 — 管理報告</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap');
+:root {
+  --accent:#D4537E; --bg:#F5F3EF; --surface:#fff;
+  --border:#E5E2DC; --text:#1A1814; --muted:#8A8680;
+  --radius:12px; --font:'Noto Sans TC',sans-serif;
+  --fl:#C8102E; --da:#E05A00; --n:#6D28D9; --sv:#BE185D; --bt:#0369A1; --lva:#065F46; --sa:#92400E;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:14px;}
+.header{background:linear-gradient(135deg,#1A1814 0%,#2d2520 100%);color:#fff;padding:24px 24px 20px;display:flex;align-items:center;gap:14px;}
+.header-icon{font-size:28px;}
+.header h1{font-size:20px;font-weight:900;letter-spacing:.5px;}
+.header p{font-size:13px;opacity:.6;margin-top:3px;}
+.topbar{background:var(--surface);border-bottom:1px solid var(--border);padding:12px 20px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.topbar select,.topbar input{padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:14px;font-family:var(--font);background:var(--bg);color:var(--text);outline:none;}
+.topbar select:focus,.topbar input:focus{border-color:var(--accent);}
+.btn{padding:9px 18px;border:none;border-radius:8px;font-size:14px;font-weight:700;font-family:var(--font);cursor:pointer;transition:opacity .2s;}
+.btn-primary{background:var(--accent);color:#fff;}
+.btn-primary:hover{opacity:.85;}
+.btn-outline{background:transparent;border:1.5px solid var(--accent);color:var(--accent);}
+.btn-outline:hover{background:#fdf2f6;}
+.btn-green{background:#166534;color:#fff;}
+.main{padding:20px;max-width:1200px;margin:0 auto;}
+.section-title{font-size:16px;font-weight:700;margin:24px 0 12px;display:flex;align-items:center;gap:8px;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px;}
+@media(max-width:700px){.grid2{grid-template-columns:1fr;}.grid4{grid-template-columns:1fr 1fr;}}
+.card{background:var(--surface);border-radius:var(--radius);border:1px solid var(--border);padding:18px;}
+.kpi{text-align:center;}
+.kpi-val{font-size:28px;font-weight:900;color:var(--text);line-height:1;}
+.kpi-lbl{font-size:12px;color:var(--muted);margin-top:5px;}
+.kpi-badge{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:10px;margin-top:5px;}
+.up{background:#dcfce7;color:#166534;} .dn{background:#fee2e2;color:#991b1b;} .flat{background:#f3f4f6;color:#6b7280;}
+.card-title{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:14px;}
+.bar-item{margin-bottom:10px;}
+.bar-row{display:flex;align-items:center;gap:10px;margin-bottom:4px;}
+.bar-lbl{font-size:13px;font-weight:500;min-width:80px;}
+.bar-pct{font-size:12px;color:var(--muted);min-width:50px;text-align:right;}
+.bar-track{flex:1;height:10px;background:var(--bg);border-radius:5px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:5px;transition:width .6s ease;}
+
+/* report table */
+.report-wrap{overflow-x:auto;margin-top:8px;}
+.report-table{width:100%;border-collapse:collapse;font-size:13px;min-width:800px;}
+.report-table th{background:#1A1814;color:#fff;padding:9px 12px;text-align:center;font-weight:700;white-space:nowrap;border:1px solid #333;}
+.report-table td{padding:8px 10px;border:1px solid var(--border);text-align:center;vertical-align:middle;}
+.report-table tr:nth-child(even) td{background:#fafaf8;}
+.report-table tr:hover td{background:#fef2f6;}
+.brand-tag{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:700;}
+.rate-cell{font-weight:700;}
+.rate-hi{color:#166534;} .rate-mid{color:#92400E;} .rate-lo{color:#991b1b;}
+
+/* feedback cards */
+.fb-card{border-radius:10px;border:1px solid var(--border);margin-bottom:10px;overflow:hidden;}
+.fb-head{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--bg);border-bottom:1px solid var(--border);}
+.fb-body{padding:12px 14px;}
+.fb-row{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap;}
+.fb-label{font-size:12px;color:var(--muted);font-weight:500;min-width:60px;flex-shrink:0;padding-top:2px;}
+.pro-tag{background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;padding:3px 9px;border-radius:12px;font-size:12px;}
+.con-tag{background:#fff1f2;color:#9f1239;border:1px solid #fecdd3;padding:3px 9px;border-radius:12px;font-size:12px;}
+.fb-text{font-size:13px;line-height:1.7;color:var(--text);}
+
+.loading{text-align:center;padding:60px 20px;color:var(--muted);}
+.spinner{width:32px;height:32px;border:3px solid #eee;border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 12px;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.empty{text-align:center;padding:40px;color:var(--muted);}
+
+.tab-bar{display:flex;gap:4px;margin-bottom:16px;border-bottom:2px solid var(--border);}
+.tab-btn{padding:10px 18px;border:none;background:none;font-family:var(--font);font-size:14px;font-weight:500;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;}
+.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);}
+.tab-pane{display:none;} .tab-pane.active{display:block;}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-icon">📊</div>
+  <div>
+    <h1>販賣指導員月報 — 管理報告</h1>
+    <p>桃園販賣部 · 資料同步自 Google Sheets</p>
+  </div>
+</div>
+
+<div class="topbar">
+  <select id="filter-month"><option value="">— 選擇月份 —</option></select>
+  <select id="filter-brand">
+        <option value="">全部品牌</option>
+    <option value="FL">FL 華歌爾</option>
+    <option value="SV">SV 莎薇</option>
+    <option value="BT">BT 嬪婷</option>
+    <option value="N">N 睡衣</option>
+    <option value="LVA">LVA 金華歌爾</option>
+    <option value="MD">MD 寶貝媽咪</option>
+    <option value="SA">SA 莎露</option>
+    <option value="DA">DA 男褲</option>
+  </select>
+  <button class="btn btn-primary" onclick="loadData()">🔄 重新載入</button>
+  <button class="btn btn-outline" onclick="exportExcel()">⬇ 匯出 Excel</button>
+  <button class="btn btn-green" onclick="printReport()">🖨 列印報告</button>
+</div>
+
+<div class="main" id="main-content">
+  <div class="loading"><div class="spinner"></div><p>資料載入中...</p></div>
+</div>
+
+<script>
+const API = 'https://script.google.com/macros/s/AKfycbw_HcpwkQqX8KmslZakdB0ajihY0O0edYhwDmshPOxTri-zC81GW1aQ3Eq9DY9YVcdewg/exec';
+const BRAND_NAMES = {FL:'華歌爾',SV:'莎薇',BT:'嬪婷',N:'睡衣',LVA:'金華歌爾',MD:'寶貝媽咪',SA:'莎露',DA:'男褲'};
+const BRAND_COLORS = {FL:'#FEE2E2,#C8102E',SV:'#FCE7F3,#BE185D',BT:'#EDE9FE,#6D28D9',N:'#E0F2FE,#0369A1',LVA:'#D1FAE5,#065F46',MD:'#FFF1EB,#E05A00',SA:'#FEF3C7,#92400E',DA:'#E0E7FF,#3730A3'};
+const COLOR_HEX = {黑色:'#1A1814',米白:'#F5F0E8',裸粉:'#F4C0D1',膚色:'#d4a574',紅色:'#C8102E',玫瑰:'#D4537E',紫色:'#8B5CF6',藍色:'#378ADD',薄荷:'#5DCAA5',橙黃:'#EF9F27',灰色:'#888780',墨綠:'#3a5a40'};
+
+let allEntries = [], allFeedbacks = [];
+
+async function loadData() {
+  document.getElementById('main-content').innerHTML = '<div class="loading"><div class="spinner"></div><p>從 Google Sheets 載入資料中...</p></div>';
+  try {
+    const [eRes, fRes] = await Promise.all([
+      fetch(API + '?type=entry'),
+      fetch(API + '?type=feedback')
+    ]);
+    allEntries   = await eRes.json();
+    allFeedbacks = await fRes.json();
+    // populate month selector
+    const months = [...new Set(allEntries.map(e => e['年月']))].filter(Boolean).sort().reverse();
+    const sel = document.getElementById('filter-month');
+    sel.innerHTML = '<option value="">全部月份</option>' + months.map(m => `<option value="${m}">${m}</option>`).join('');
+    renderAll();
+  } catch(err) {
+    document.getElementById('main-content').innerHTML = `<div class="empty">❌ 無法連線至 Google Sheets<br><small style="color:var(--muted)">${err.message}</small><br><br><button class="btn btn-primary" onclick="loadData()">重試</button></div>`;
+  }
+}
+
+function getFiltered() {
+  const m = document.getElementById('filter-month').value;
+  const b = document.getElementById('filter-brand').value;
+  const entries   = allEntries.filter(e => (!m || e['年月']===m) && (!b || e['品牌']===b));
+  const feedbacks = allFeedbacks.filter(f => (!m || f['年月']===m));
+  return { entries, feedbacks };
+}
+
+function renderAll() {
+  const { entries, feedbacks } = getFiltered();
+  const m = document.getElementById('filter-month').value;
+  const b = document.getElementById('filter-brand').value;
+
+  // KPIs
+  const totalSold  = entries.reduce((a,e) => a + (+e['銷售']||0), 0);
+  const totalIn    = entries.reduce((a,e) => a + (+e['進貨']||0), 0);
+  const totalStock = entries.reduce((a,e) => a + (+e['庫存']||0), 0);
+  const avgRate    = totalIn > 0 ? Math.round(totalSold/totalIn*100) : 0;
+  const skuCount   = entries.length;
+
+  // Year-over-year (same month, previous year)
+  let yoyHtml = '';
+  if (m) {
+    const [yr, mo] = m.split('-');
+    const prevM = `${parseInt(yr)-1}-${mo}`;
+    const prevEntries = allEntries.filter(e => e['年月']===prevM && (!b || e['品牌']===b));
+    const prevSold = prevEntries.reduce((a,e) => a + (+e['銷售']||0), 0);
+    if (prevSold > 0) {
+      const diff = Math.round((totalSold - prevSold) / prevSold * 100);
+      const cls = diff>0?'up':diff<0?'dn':'flat';
+      const arrow = diff>0?'▲':diff<0?'▼':'—';
+      yoyHtml = `<span class="kpi-badge ${cls}">${arrow} ${diff>0?'+':''}${diff}% 較去年同期</span>`;
+    }
+  }
+
+  // Brand breakdown
+  const brandMap = {};
+  entries.forEach(e => {
+    const bk = e['品牌']||'?';
+    if (!brandMap[bk]) brandMap[bk] = {sold:0,inQty:0,count:0};
+    brandMap[bk].sold  += +e['銷售']||0;
+    brandMap[bk].inQty += +e['進貨']||0;
+    brandMap[bk].count++;
+  });
+  const brandSorted = Object.entries(brandMap).sort((a,z) => z[1].sold - a[1].sold);
+  const maxBrandSold = Math.max(...brandSorted.map(([,v]) => v.sold), 1);
+
+  // Color breakdown
+  const colorMap = {};
+  entries.forEach(e => {
+    const colors = (e['主銷顏色']||'').split('/').filter(Boolean);
+    colors.forEach(c => colorMap[c] = (colorMap[c]||0) + (+e['銷售']||0));
+  });
+  const colorSorted = Object.entries(colorMap).sort((a,z) => z[1]-a[1]).slice(0,8);
+  const maxColor = Math.max(...colorSorted.map(([,v])=>v), 1);
+
+  // Feedback summary
+  const proMap = {}, conMap = {};
+  feedbacks.forEach(f => {
+    (f['優點']||'').split('/').filter(Boolean).forEach(p => proMap[p]=(proMap[p]||0)+1);
+    (f['缺點']||'').split('/').filter(Boolean).forEach(c => conMap[c]=(conMap[c]||0)+1);
+  });
+  const topPros = Object.entries(proMap).sort((a,z)=>z[1]-a[1]).slice(0,5);
+  const topCons = Object.entries(conMap).sort((a,z)=>z[1]-a[1]).slice(0,5);
+
+  // Rate color
+  function rateClass(rStr) {
+    const n = parseInt(rStr);
+    if (isNaN(n)) return '';
+    if (n>=30) return 'rate-hi'; if (n>=15) return 'rate-mid'; return 'rate-lo';
+  }
+
+  // Brand badge
+  function brandBadge(bk) {
+    const [bg,fg] = (BRAND_COLORS[bk]||'#eee,#333').split(',');
+    return `<span class="brand-tag" style="background:${bg};color:${fg}">${bk} ${BRAND_NAMES[bk]||''}</span>`;
+  }
+
+  document.getElementById('main-content').innerHTML = `
+  <!-- KPI -->
+  <div class="grid4">
+    <div class="card kpi">
+      <div class="kpi-val">${totalSold.toLocaleString()}</div>
+      <div class="kpi-lbl">總銷售量（件）</div>
+      ${yoyHtml}
+    </div>
+    <div class="card kpi">
+      <div class="kpi-val">${totalIn.toLocaleString()}</div>
+      <div class="kpi-lbl">總進貨量（件）</div>
+    </div>
+    <div class="card kpi">
+      <div class="kpi-val">${avgRate}%</div>
+      <div class="kpi-lbl">整體銷售率</div>
+    </div>
+    <div class="card kpi">
+      <div class="kpi-val">${skuCount}</div>
+      <div class="kpi-lbl">商品筆數</div>
+    </div>
+  </div>
+
+  <!-- 圖表 -->
+  <div class="grid2">
+    <div class="card">
+      <div class="card-title">品牌銷售排行</div>
+      ${brandSorted.length ? brandSorted.map(([bk,v])=>{
+        const [bg,fg]=(BRAND_COLORS[bk]||'#eee,#333').split(',');
+        const pct=Math.round(v.sold/maxBrandSold*100);
+        const rate=v.inQty>0?Math.round(v.sold/v.inQty*100):0;
+        return `<div class="bar-item">
+          <div class="bar-row">
+            <span class="bar-lbl"><span style="background:${bg};color:${fg};padding:1px 6px;border-radius:8px;font-size:11px;font-weight:700">${bk}</span></span>
+            <div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${fg}"></div></div>
+            <span class="bar-pct">${v.sold}件 ${rate}%</span>
+          </div>
+        </div>`;
+      }).join('') : '<div class="empty">無資料</div>'}
+    </div>
+    <div class="card">
+      <div class="card-title">主銷顏色排行</div>
+      ${colorSorted.length ? colorSorted.map(([c,v])=>{
+        const hex=COLOR_HEX[c]||'#888';
+        const pct=Math.round(v/maxColor*100);
+        return `<div class="bar-item">
+          <div class="bar-row">
+            <span class="bar-lbl"><span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:${hex};margin-right:5px;vertical-align:middle"></span>${c}</span>
+            <div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${hex}"></div></div>
+            <span class="bar-pct">${v}件</span>
+          </div>
+        </div>`;
+      }).join('') : '<div class="empty">無顏色資料</div>'}
+    </div>
+  </div>
+
+  <!-- 反饋摘要 -->
+  ${feedbacks.length ? `
+  <div class="grid2">
+    <div class="card">
+      <div class="card-title">⭐ 最常提到的優點 Top5</div>
+      ${topPros.map(([t,n])=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--border)">
+        <span class="pro-tag">${t}</span><span style="font-weight:700;color:#166534">${n} 次</span>
+      </div>`).join('')}
+    </div>
+    <div class="card">
+      <div class="card-title">⚠ 最常提到的缺點 Top5</div>
+      ${topCons.map(([t,n])=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--border)">
+        <span class="con-tag">${t}</span><span style="font-weight:700;color:#9f1239">${n} 次</span>
+      </div>`).join('')}
+    </div>
+  </div>` : ''}
+
+  <!-- 詳細表格 + 反饋 tabs -->
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('tbl',this)">📋 進銷明細表（${entries.length} 筆）</button>
+    <button class="tab-btn" onclick="switchTab('fbs',this)">💬 銷售反饋（${feedbacks.length} 筆）</button>
+  </div>
+
+  <div class="tab-pane active" id="tab-tbl">
+    <div class="report-wrap">
+      <table class="report-table" id="data-table">
+        <thead>
+          <tr>
+            <th>年月</th><th>品牌</th><th>上市日</th><th>系列</th><th>貨號</th>
+            <th>上期庫存</th><th>進貨</th><th>銷售</th><th>期末庫存</th><th>銷售率</th>
+            <th>主銷顏色</th><th>填表人員</th><th>備註</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${entries.length ? entries.map(e => `
+          <tr>
+            <td>${e['年月']||''}</td>
+            <td>${brandBadge(e['品牌'])}</td>
+            <td>${e['上市日']||''}</td>
+            <td style="text-align:left;max-width:120px">${e['系列']||''}</td>
+            <td><strong>${e['貨號']||''}</strong></td>
+            <td>${e['上期庫存']||0}</td>
+            <td>${e['進貨']||0}</td>
+            <td><strong>${e['銷售']||0}</strong></td>
+            <td>${e['庫存']||0}</td>
+            <td class="rate-cell ${rateClass(e['銷售率'])}">${e['銷售率']||''}</td>
+            <td>${e['主銷顏色']||''}</td>
+            <td>${e['填表人員']||''}</td>
+            <td style="text-align:left;max-width:150px;font-size:12px">${e['備註']||''}</td>
+          </tr>`).join('') : '<tr><td colspan="13" class="empty">尚無進銷資料</td></tr>'}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="tab-pane" id="tab-fbs">
+    ${feedbacks.length ? feedbacks.map(f=>`
+    <div class="fb-card">
+      <div class="fb-head">
+        <strong>${f['填表人員']||'—'}</strong>
+        <span style="color:var(--muted);font-size:12px">${f['年月']||''} · ${f['品牌系列']||''}</span>
+      </div>
+      <div class="fb-body">
+        ${f['優點'] ? `<div class="fb-row"><span class="fb-label">優點</span><div style="display:flex;gap:5px;flex-wrap:wrap">${f['優點'].split('/').filter(Boolean).map(t=>`<span class="pro-tag">${t}</span>`).join('')}</div></div>` : ''}
+        ${f['缺點'] ? `<div class="fb-row"><span class="fb-label">缺點</span><div style="display:flex;gap:5px;flex-wrap:wrap">${f['缺點'].split('/').filter(Boolean).map(t=>`<span class="con-tag">${t}</span>`).join('')}</div></div>` : ''}
+        ${f['市場反應'] ? `<div class="fb-row"><span class="fb-label">市場反應</span><div class="fb-text">${f['市場反應']}</div></div>` : ''}
+        ${f['銷售建議'] ? `<div class="fb-row"><span class="fb-label">建議</span><div class="fb-text">${f['銷售建議']}</div></div>` : ''}
+      </div>
+    </div>`).join('') : '<div class="empty">尚無反饋資料</div>'}
+  </div>
+  `;
+}
+
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-'+id).classList.add('active');
+}
+
+// Export to CSV (can be opened in Excel)
+function exportExcel() {
+  const { entries } = getFiltered();
+  if (!entries.length) { alert('無資料可匯出'); return; }
+  const headers = ['年月','品牌','品牌全名','上市日','系列','貨號','上期庫存','進貨','銷售','期末庫存','銷售率','主銷顏色','填表人員','備註'];
+  const rows = entries.map(e => [
+    e['年月'], e['品牌'], BRAND_NAMES[e['品牌']]||'',
+    e['上市日'], e['系列'], e['貨號'],
+    e['上期庫存'], e['進貨'], e['銷售'], e['庫存'], e['銷售率'],
+    e['主銷顏色'], e['填表人員'], e['備註']
+  ].map(v=>`"${(v||'').toString().replace(/"/g,'""')}"`).join(','));
+  const csv = '\uFEFF' + [headers.join(','), ...rows].join('\n');
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  const m = document.getElementById('filter-month').value || '全部';
+  a.download = `販賣指導員發言表_${m}.csv`;
+  a.click();
+}
+
+function printReport() { window.print(); }
+
+document.getElementById('filter-month').addEventListener('change', renderAll);
+document.getElementById('filter-brand').addEventListener('change', renderAll);
+
+// auto load
+loadData();
+</script>
+</body>
+</html>
